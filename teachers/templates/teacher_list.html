@@ -1,0 +1,29 @@
+<table border="1">
+    <tr>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>hire_date</th>
+        <th>experience</th>
+        <th>Actions</th>
+    </tr>
+    {% for teacher in teachers %}
+    <tr>
+        <td>
+            <a href="{% url 'teacher_detail' teacher.id %}">
+                {{ teacher.first_name }}
+            </a>
+        </td>
+        <td>{{ teacher.last_name }}</td>
+        <td>{{ teacher.email }}</td>
+        <td>{{ teacher.subject }}</td>
+        <td>{{ teacher.hire_date }}</td>
+        <td>{{ teacher.experience }}</td>
+        <td>
+            <a href="{% url 'edit_teacher' teacher.id %}">Edit</a> |
+            <a href="{% url 'delete_teacher' teacher.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

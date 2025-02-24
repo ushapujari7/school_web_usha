@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,11 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
+# <<<<<<< HEAD
 SECRET_KEY = 'django-insecure-&!(7jab*#h&-x#pri60+775m07j2tex1!gmflckiftgd2r@rj^'
-=======
+# =======
 SECRET_KEY = 'django-insecure-4y^5m$&67p3=95yl--oai1vf45ktg@5yz!#&uph-+%^=$!vhmz'
->>>>>>> fc4c422e90022e9f8f5f74e14d598ae3d26f5a2a
+# >>>>>>> fc4c422e90022e9f8f5f74e14d598ae3d26f5a2a
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'teachers',
+    'students',
+    'rest_framework',
+
+
 ]
 
 MIDDLEWARE = [
@@ -55,10 +60,34 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'school_web_usha.urls'
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'DIRS': [os.path.join(BASE_DIR, 'school_web_usha', 'templates')],
+        # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Correct path
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,10 +106,24 @@ WSGI_APPLICATION = 'school_web_usha.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'school_web_usha',  # Database name
+        'USER': 'root',           # MySQL username
+        'PASSWORD': 'Ushapujari@7',   # MySQL password
+        'HOST': 'localhost',           # Change if using a remote server
+        'PORT': '3306',                # Default MySQL port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
